@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+
 import 'package:flutter_avatar_note/flutter_avatar_note.dart';
 
 void main() {
