@@ -1,37 +1,28 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class AvatarNote extends StatefulWidget {
-  const AvatarNote({
+class AvatarNoteInputField extends StatefulWidget {
+  const AvatarNoteInputField({
     super.key,
     required this.radius,
     required this.imageUrl,
-    required this.note,
-    this.audioUrl,
+    this.onNoteChanged,
+    required this.onNoteSubmited,
   });
 
   final double radius;
   final String imageUrl;
-  final String note;
-  final String? audioUrl;
+  final ValueChanged<String>? onNoteChanged;
+  final ValueChanged<String> onNoteSubmited;
 
   @override
-  State<AvatarNote> createState() => _AvatarNoteState();
+  State<AvatarNoteInputField> createState() => _AvatarNoteInputFieldState();
 }
 
-class _AvatarNoteState extends State<AvatarNote> {
-  late AudioPlayer _player;
-
+class _AvatarNoteInputFieldState extends State<AvatarNoteInputField> {
   @override
   void initState() {
     super.initState();
-    // init audio player
-    _player = AudioPlayer();
-    // play audio
-    if (widget.audioUrl != null) {
-      _player.play(UrlSource(widget.audioUrl!));
-    }
   }
 
   @override
@@ -67,23 +58,29 @@ class _AvatarNoteState extends State<AvatarNote> {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Container(
-                width: (widget.note.length < 12)
-                    ? ((widget.radius * 2) - 64)
-                    : ((widget.radius * 2) - 16),
-                padding: EdgeInsets.symmetric(
-                  vertical: (widget.note.length <= 12) ? 24 : 14,
-                  horizontal: (widget.note.length < 12) ? 12 : 24,
+                width: ((widget.radius * 2) - 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 14,
+                  horizontal: 24,
                 ),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(32.0),
                 ),
                 child: Center(
-                  child: Text(
-                    widget.note,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Note...',
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) {
+                      if (widget.onNoteChanged != null) {
+                        widget.onNoteChanged!.call(value);
+                      }
+                    },
+                    onFieldSubmitted: (value) {
+                      widget.onNoteSubmited.call(value);
+                    },
                   ),
                 ),
               ),

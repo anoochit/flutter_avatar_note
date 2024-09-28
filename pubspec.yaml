@@ -7,6 +7,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  audioplayers: ^6.1.0
   cached_network_image: ^3.4.1
   flutter:
     sdk: flutter
@@ -19,7 +20,7 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
-flutter: null
+# flutter: null
 
 # To add assets to your package, add an assets section, like this:
 # assets:

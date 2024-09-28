@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_avatar_note/flutter_avatar_note.dart';
@@ -34,15 +35,31 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   static const avatarUrl =
       'https://avatars.githubusercontent.com/u/1182518?v=4';
+  static const audioUrl = null;
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: AvatarNote(
-          radius: 96.0,
-          imageUrl: avatarUrl,
-          note: 'Sint enim ad occaecat nulla sint.',
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const AvatarNote(
+              radius: 96.0,
+              imageUrl: avatarUrl,
+              note: 'Sint enim ad occaecat nulla sint.',
+              audioUrl: audioUrl,
+            ),
+            AvatarNoteInputField(
+                radius: 96.0,
+                imageUrl: avatarUrl,
+                onNoteChanged: (String note) {
+                  // do something
+                },
+                onNoteSubmited: (String note) {
+                  // do something
+                }),
+          ],
         ),
       ),
     );
